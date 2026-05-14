@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+  <title>クイズアプリ</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;700;900&family=Space+Mono:wght@700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<!-- ===== START SCREEN ===== -->
+<div id="screen-start" class="screen active">
+  <div class="start-wrap">
+    <div class="logo-badge">QUIZ</div>
+    <h1 class="start-title">知識を<br>試そう</h1>
+    <p class="start-sub">全 <span id="total-count">0</span> 問</p>
+    <div class="user-input-block">
+      <label>お名前（任意）</label>
+      <input type="text" id="user-name" placeholder="例：田中太郎" maxlength="20">
+    </div>
+    <button class="btn-start" onclick="startQuiz()">スタート</button>
+  </div>
+</div>
+
+<!-- ===== QUIZ SCREEN ===== -->
+<div id="screen-quiz" class="screen">
+  <header class="quiz-header">
+    <div class="progress-wrap">
+      <div class="progress-bar"><div id="progress-fill" class="progress-fill"></div></div>
+      <span id="progress-text" class="progress-text">1 / 10</span>
+    </div>
+    <div id="score-badge" class="score-badge">✓ 0</div>
+  </header>
+
+  <main class="quiz-main">
+    <div class="q-number" id="q-number">Q1</div>
+    <div class="q-text" id="q-text">問題文がここに表示されます。</div>
+
+    <div id="choices" class="choices"></div>
+
+    <div id="feedback" class="feedback hidden">
+      <div id="feedback-icon" class="feedback-icon"></div>
+      <div id="feedback-msg" class="feedback-msg"></div>
+      <div id="explanation" class="explanation"></div>
+      <button class="btn-next" onclick="nextQuestion()">次の問題 →</button>
+    </div>
+  </main>
+</div>
+
+<!-- ===== RESULT SCREEN ===== -->
+<div id="screen-result" class="screen">
+  <div class="result-wrap">
+    <div id="result-emoji" class="result-emoji">🎉</div>
+    <h2 class="result-title">結果発表</h2>
+    <div class="result-score">
+      <span id="result-correct">0</span>
+      <span class="result-slash"> / </span>
+      <span id="result-total">0</span>
+    </div>
+    <p id="result-comment" class="result-comment"></p>
+    <div id="result-status" class="result-status"></div>
+
+    <div class="result-actions">
+      <button class="btn-save" id="btn-save" onclick="saveToSheet()">
+        📊 スプレッドシートに保存
+      </button>
+      <div id="save-status" class="save-status hidden"></div>
+      <button class="btn-retry" onclick="retryQuiz()">もう一度</button>
+    </div>
+
+    <div id="review-list" class="review-list"></div>
+  </div>
+</div>
+
+<!-- ===== SETTINGS (hidden by default) ===== -->
+<div id="screen-settings" class="screen settings-screen">
+  <div class="settings-wrap">
+    <h2>設定</h2>
+    <label>Google Apps Script URL</label>
+    <input type="url" id="gas-url-input" placeholder="https://script.google.com/...">
+    <button onclick="saveSettings()">保存</button>
+    <button onclick="showScreen('screen-start')">戻る</button>
+  </div>
+</div>
+
+<!-- Settings gear -->
+<button class="gear-btn" onclick="showScreen('screen-settings')" title="設定">⚙️</button>
+
+<script src="quiz-data.js"></script>
+<script src="app.js"></script>
+</body>
+</html>
